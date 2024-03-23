@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lego Collection</title>
+  <link rel="stylesheet" href="/css/main.css" />
+
+</head>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lego Collection</title>
+  <link rel="stylesheet" href="/css/main.css" />
+
+</head>
+
+<body tabindex="-1">
+  <%- include('partials/navbar', { page: '/about' }) %>
+    <div class="navbar bg-base-100">
+      <div class="flex-1">
+        <a class="btn btn-ghost normal-case text-xl" href="/">Lego Collection</a>
+      </div>
+
+      <div class="dropdown">
+        <label tabindex="0" class="btn btn-ghost sm:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </label>
+        <ul tabindex="0"
+          class="menu menu-sm dropdown-content right-0 mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+          <li><a class="active" href="/about">About</a></li>
+          <li>
+            <details>
+              <summary>
+                Theme
+              </summary>
+              <ul class="p-2 bg-base-100">
+                <li><a href="/lego/sets?theme=technic">Technic</a></li>
+                <li><a href="/lego/sets?theme=classic town">Classic Town</a></li>
+                <li><a href="/lego/sets?theme=supplemental">Supplemental</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </div>
+
+      <div class="navbar-center hidden sm:flex">
+        <ul class="menu menu-horizontal px-1">
+          <li><a class="active" href="/about">About</a></li>
+          <li>
+            <details>
+              <summary>Theme</summary>
+              <ul class="p-2 bg-base-100 right-0">
+                <li><a href="/lego/sets?theme=technic">Technic</a></li>
+                <li><a href="/lego/sets?theme=classic town">Classic Town</a></li>
+                <li><a href="/lego/sets?theme=supplemental">Supplemental</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="container mx-auto">
+
+      <div class="hero bg-base-200 rounded-lg p-6">
+        <div class="hero-content text-center ">
+          <div class="max-w-md">
+            <h1 class="text-5xl font-bold">About</h1>
+
+            <p class="py-6" style="color: rgba(44, 1, 29, 0.615);">Everything you want to know about me - the designer &amp; developer.</p>
+
+          </div>
+        </div>
+      </div>
+
+      <br />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <img class="w-full rounded-lg"
+            src="https://img.freepik.com/premium-vector/software-language-programmer-avatar_24877-764.jpg"
+            alt="profile" />
+
+        </div>
+        <div class="prose">
+
+          <p >My name is Harshil kotadia and I'm currently studying at Seneca Polytechnic.</p>
+
+          <p>
+            "Hi there! I'm harshil , currently studying Computer Programming and Analysis at Seneca College. My fascination with technology and computers has driven me to dive into coding and software development. Outside of academics, I love representing my college in sports. With expertise in website building and a strong programming background, I'm always eager for new challenges to grow personally and professionally. Follow along as I explore programming, web development, and more!"</p>
+
+        </div>
+
+      </div>
+
+    </div>
+</body>
+
+</html>

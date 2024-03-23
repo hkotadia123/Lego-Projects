@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lego Set Detail</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <!-- Include navbar partial -->
+    <% include('partials/navbar', { page: '/lego/sets' }) %>
+
+    <div class="container mx-auto">
+        <div class="card bg-base-200 shadow-xl p-6">
+            <figure>
+                <img class="w-full" src="<%= set.img_url %>" alt="Lego set">
+            </figure>
+            <div class="card-body">
+                <h2 class="card-title"><%= set.name %></h2>
+                <p><strong>Theme:</strong> <%= set.theme %></p>
+                <p><strong>Year:</strong> <%= set.year %></p>
+                <p><strong>Number of Parts:</strong> <%= set.num_parts %></p>
+                <p><strong>Description:</strong> <%= set.description %></p>
+                <div class="card-actions justify-end">
+                    <a href="/lego/sets" class="btn btn-primary">Back to Sets</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
