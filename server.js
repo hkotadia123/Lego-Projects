@@ -6,23 +6,34 @@
  *
  * https://www.senecacollege.ca/about/policies/academic-integrity-policy.html
  *
- * Name: Devankit Shukla
- * Student ID: 139395222
+ * Name: Harshil Kotadia
+ * Student ID: 118800226
  * Date: 22/03/2024
  *
- * Published URL: https://ruby-spotless-greyhound.cyclic.app
+ * Published URL: 
  ********************************************************************************/
 
 const express = require('express');
 const path = require('path');
 const legoData = require('./modules/legoSets');
-
+const authData = require('./modules/auth-service');
+const clientSessions = require('client-sessions');
 const app = express();
 const HTTP_PORT = process.env.PORT || 8080;
 
 // Middleware
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: true })); // Middleware for parsing URL-encoded form data
+app.use(express.urlencoded({ extended: true }));
+app.use(clientSessions({
+  cookieName: 'session',
+  secret: 'random_secret_string',
+  duration: 24 * 60 * 60 * 1000,
+  activeDuration: 1000 * 60 * 5
+}));
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  next();
+});
 app.set('view engine', 'ejs');
 
 // Function to fetch random quote
@@ -117,7 +128,17 @@ app.get('/lego/editSet/:num', async (req, res) => {
   }
 });
 
-// server.js
+// POST route for processing the form data and updating a set
+app.post('/lego/editSet/:num', async (req, res) => {
+  try {
+    const setNum = req.params.num;
+    await legoData.updateSet(setNum, req.body);
+    res.redirect(`/lego/sets/${setNum}`);
+  } catch (error) {
+    console.error('Error updating set:', error);
+    res.render('500', { message: `An error occurred while updating the set: ${error}` });
+  }
+});
 
 // Route to delete a set
 app.get('/lego/deleteSet/:num', async (req, res) => {
@@ -133,26 +154,75 @@ app.get('/lego/deleteSet/:num', async (req, res) => {
 
 
 
-// POST route for processing the form data and updating a set
-app.post('/lego/editSet/:num', async (req, res) => {
+// Route to render the login view
+app.get('/login', (req, res) => {
+  res.render('login', { errorMessage: null, userName: null });
+});
+
+
+// Route to render the register view
+app.get('/register', (req, res) => {
+  res.render('register', { errorMessage: null, userName: null });
+});
+
+// POST route to handle user registration
+app.post('/register', async (req, res) => {
   try {
-    const setNum = req.params.num;
-    await legoData.updateSet(setNum, req.body);
-    res.redirect(`/lego/sets/${setNum}`);
+    const userData = req.body;
+    await authData.registerUser(userData);
+    res.render('register', { successMessage: "User created" });
   } catch (error) {
-    console.error('Error updating set:', error);
-    res.render('500', { message: `An error occurred while updating the set: ${error}` });
+    res.render('register', { errorMessage: error, userName: req.body.userName });
+  }
+});
+// Route to handle user login
+app.post('/login', async (req, res) => {
+  try {
+    req.body.userAgent = req.get('User-Agent');
+    const user = await authData.checkUser(req.body);
+    req.session.user = {
+      userName: user.userName,
+      email: user.email,
+      loginHistory: user.loginHistory
+    };
+    res.redirect('/lego/sets');
+  } catch (error) {
+    res.render('login', { errorMessage: error, userName: req.body.userName });
   }
 });
 
-// Custom error handling middleware for other errors
+// Route to handle user logout
+app.get('/logout', (req, res) => {
+  req.session.reset();
+  res.redirect('/');
+});
+
+// Route to render the userHistory view
+app.get('/userHistory', ensureLogin, (req, res) => {
+  res.render('userHistory', { loginHistory: req.session.user.loginHistory });
+});
+
+
+// Custom middleware to ensure user is logged in
+function ensureLogin(req, res, next) {
+  if (req.session && req.session.user) {
+    // User is logged in
+    next();
+  } else {
+    // User is not logged in, redirect to login route
+    res.redirect('/login');
+  }
+}
+
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).render('500', { message: 'Internal Server Error' });
 });
 
-// Initialize database and start server
+// Initialize database and start servers
 legoData.initialize()
+  .then(authData.initialize)
   .then(() => {
     app.listen(HTTP_PORT, () => {
       console.log(`Server listening on: http://localhost:${HTTP_PORT}`);

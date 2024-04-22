@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+   
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffc0cb; /* Pink background */
+            color: #333333; /* Dark gray text color */
+        }
+
+        /* Container Styles */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Form Container Styles */
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 400px;
+        }
+
+        /* Form Title Styles */
+        .form-title {
+            font-size: 2.5rem; /* Increased font size */
+            font-weight: bold;
+            color: #ff69b4; /* Hot pink color */
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Text shadow effect */
+        }
+
+        /* Form Table Styles */
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        /* Table Row Styles */
+        .form-table tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        /* Table Header Styles */
+        .form-table th {
+            text-align: left;
+            padding: 15px 0; /* Increased padding */
+            color: #555555; /* Gray color */
+            font-size: 1.2rem; /* Increased font size */
+        }
+
+        /* Table Data Styles */
+        .form-table td {
+            padding: 15px 0; /* Increased padding */
+        }
+
+        /* Input Styles */
+        .input-field {
+            width: 100%;
+            padding: 12px; /* Increased padding */
+            border-radius: 5px;
+            border: 1px solid #dddddd;
+            font-size: 1.1rem; /* Increased font size */
+        }
+
+        /* Button Styles */
+        .btn {
+            width: 100%;
+            padding: 15px; /* Increased padding */
+            border: none;
+            border-radius: 5px;
+            background-color: #ff69b4; /* Hot pink color */
+            color: #ffffff; /* White color */
+            font-size: 1.2rem; /* Increased font size */
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Smooth transition */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Button shadow effect */
+        }
+
+        /* Button Hover Styles */
+        .btn:hover {
+            background-color: #ff1493; /* Darker pink color on hover */
+        }
+  
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <h2 class="form-title">Login</h2>
+      <form action="/login" method="POST">
+        <table class="form-table">
+          <tr>
+            <th>User Name</th>
+            <td><input type="text" name="userName" class="input-field" placeholder="Enter your user name" required></td>
+          </tr>
+          <tr>
+            <th>Password</th>
+            <td><input type="password" name="password" class="input-field" placeholder="Enter your password" required></td>
+          </tr>
+        </table>
+        <button type="submit" class="btn">Login</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>a

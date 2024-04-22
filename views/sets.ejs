@@ -6,65 +6,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lego Collection</title>
   <link rel="stylesheet" href="/css/main.css" />
-  <style>
-    .table-striped tr:nth-child(even) {
-      background-color: #f3f4f6;
-    }
-    
-    .table-striped img {
-      display: block;
-      margin: 0 auto;
-      max-width: 80px; /* Reduce width of image column */
-      max-height: calc(100vw * 0.6); /* 4:3 aspect ratio */
-    }
-
-    .table-striped td {
-      text-align: center;
-      vertical-align: middle;
-    }
-
-    .table-striped .btn {
-      margin-top: 10px; /* Increase spacing between name and button */
-    }
-  </style>
 </head>
 
 <body tabindex="-1">
   <!-- Include navbar partial -->
   <% include('partials/navbar', { page: '/lego/sets' }) %>
+  <div class="navbar-center hidden sm:flex">
+    <ul class="menu menu-horizontal px-1">
+      <li><a href="/about">About</a></li>
+      <li><a href="/lego/addSet">Add Set</a></li>
+      <li>
+        <details>
+          <summary>Theme</summary>
+          <ul class="p-2 bg-base-100 right-0">
+            <li><a href="/lego/sets?theme=Duplo">Duplo</a></li>
+              <li><a href="/lego/sets?theme=Town">Town</a></li>
+              <li><a href="/lego/sets?theme=Classic">Classic</a></li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<br />
+
 
   <div class="container mx-auto">
+
     <div class="hero bg-base-200 rounded-lg p-6">
       <div class="hero-content text-center ">
         <div class="max-w-md">
-          <h1 class="text-5xl font-bold">Gathering</h1>
-          <p class="py-6">Design, Build, and Play: Enter the LEGO Playground of Possibilities</p>
+          <h1 class="text-5xl font-bold">Collecting</h1>
+
+          <p class="py-6">Create, Construct, and Enjoy: Step into the LEGO World of Imagination.</p>
+      
           <a href="/lego/sets" class="btn btn-primary">Get Started Now</a>
-          <a href="/" class="btn btn-primary">Back to Set</a>
         </div>
       </div>
     </div>
 
     <br />
+    
 
-    <table class="table-auto w-full table-striped">
-      <thead>
-        <tr>
-          <th class="px-4 py-2 border">Image</th>
-          <th class="px-4 py-2 border">Name</th>
-          <th class="px-4 py-2 border">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% sets.forEach(set => { %>
-        <tr>
-          <td class="border px-4 py-2"><img src="<%= set.img_url %>" alt="<%= set.name %>" class="w-full h-auto"></td>
-          <td class="border px-4 py-2"><%= set.name %></td>
-          <td class="border px-4 py-2"><a href="/lego/sets/<%= set.set_num %>" class="btn btn-primary">View Details</a></td>
-        </tr>
-        <% }) %>
-      </tbody>
-    </table>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <% sets.forEach(set => { %>
+      <div>
+        <div class="card bg-base-100 shadow-xl">
+          <figure>
+            <img class="w-full" src="<%= set.img_url %>" alt="<%= set.name %>" />
+          </figure>
+          <div class="card-body">
+            <h2 class="card-title"><%= set.name %></h2>
+            <p><%= set.description %></p>
+            <div class="card-actions justify-end">
+              <a href="/lego/sets/<%= set.set_num %>" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
   </div>
 </body>
 
